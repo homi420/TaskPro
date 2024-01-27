@@ -8,20 +8,24 @@ const Signup = () => {
   const { handleAlert } = useMyContext();
   const router = useRouter();
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const userName = formData.get("userName");
-    const email = formData.get("email");
-    const password = formData.get("password");
-    const response = await fetch("api/signUp", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ userName, email, password }),
-    });
-    const json = await response.json();
-    handleAlert(json.resp.success, json.resp);
-    if (response.ok) {
-      router.push("/login");
+    try {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const userName = formData.get("userName");
+      const email = formData.get("email");
+      const password = formData.get("password");
+      const response = await fetch("api/signUp", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ userName, email, password }),
+      });
+      const json = await response.json();
+      handleAlert(json.resp.success, json.resp);
+      if (response.ok) {
+        router.push("/login");
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
   return (

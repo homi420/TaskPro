@@ -8,21 +8,25 @@ const Login = () => {
   const { handleAlert, setIsLoggedIn } = useMyContext();
   const router = useRouter();
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const email = formData.get("email");
-    const password = formData.get("password");
-    const response = await fetch("api/login", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-    const json = await response.json();
-    handleAlert(response.ok, json.resp);
-    if (response.ok) {
-      localStorage.setItem("token", json.resp.token);
-      setIsLoggedIn(() => true);
-      router.push("/taskManager");
+    try {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const email = formData.get("email");
+      const password = formData.get("password");
+      const response = await fetch("api/login", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      const json = await response.json();
+      handleAlert(response.ok, json.resp);
+      if (response.ok) {
+        localStorage.setItem("token", json.resp.token);
+        setIsLoggedIn(() => true);
+        router.push("/taskManager");
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
   return (
