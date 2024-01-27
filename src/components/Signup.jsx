@@ -26,6 +26,7 @@ const Signup = () => {
       }
     } catch (error) {
       console.log(error);
+      console.log(json);
     }
   };
   return (
