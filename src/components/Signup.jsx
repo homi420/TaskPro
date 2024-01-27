@@ -20,6 +20,7 @@ const Signup = () => {
         body: JSON.stringify({ userName, email, password }),
       });
       const json = await response.json();
+      console.log(response);
       handleAlert(json.resp.success, json.resp);
       if (response.ok) {
         router.push("/login");
