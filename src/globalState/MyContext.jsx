@@ -31,7 +31,7 @@ export const MyContextProvider = ({ children }) => {
   const pathname = usePathname();
 
   useEffect(() => {
-    socket = io("http://localhost:5000");
+    socket = io("https://taskprobackend.glitch.me/");
     socket.on("connect", handleSocketConnect);
     socket.on("newNotification", handleNewNotification);
     socket.on("removeNotification", handleRemoveNotification);
