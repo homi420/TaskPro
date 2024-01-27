@@ -25,9 +25,9 @@ const Login = () => {
         setIsLoggedIn(() => true);
         router.push("/taskManager");
       }
+      console.log(json);
     } catch (error) {
       console.log(error);
-      console.log(json);
     }
   };
   return (

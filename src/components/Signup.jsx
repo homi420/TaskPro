@@ -24,9 +24,9 @@ const Signup = () => {
       if (response.ok) {
         router.push("/login");
       }
+      console.log(json);
     } catch (error) {
       console.log(error);
-      console.log(json);
     }
   };
   return (
