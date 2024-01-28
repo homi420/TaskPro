@@ -19,11 +19,14 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
       });
       const json = await response.json();
-      handleAlert(response.ok, json.resp);
       if (response.ok) {
         localStorage.setItem("token", json.resp.token);
+        handleAlert(true, json.resp);
+
         setIsLoggedIn(() => true);
         router.push("/taskManager");
+      } else {
+        handleAlert(false, json.resp);
       }
       console.log(json);
     } catch (error) {

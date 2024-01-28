@@ -21,10 +21,13 @@ const Signup = () => {
       });
       const json = await response.json();
       console.log(response);
-      handleAlert(json.resp.success, json.resp);
       if (response.ok) {
+        handleAlert(true, json.resp);
         router.push("/login");
+      } else {
+        handleAlert(false, json.resp);
       }
+
       console.log(json);
     } catch (error) {
       console.log(error);

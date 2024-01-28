@@ -1,28 +1,25 @@
 import Users from "@models/Users";
 import connectToDb from "@utils/connectToDb";
 import response from "@utils/response";
-import crud from "mister-crud";
+import bcrypt from "bcrypt";
 export const POST = async (req) => {
   await connectToDb();
   const { userName, email, password } = await req.json();
-  // console.log(userName);
-  // console.log(email);
-  // console.log(password);
 
   try {
-    if (!userName) return response(400, "Fields Can not be empty!");
-    const resp = await crud.signUp(
-      { body: { userName, email, password } },
-      Users
-    );
-    if (resp !== undefined) {
-      if (!resp?.success) return response(400, resp);
-    } else {
-      return response(200, {
-        success: true,
-        message: "Registered Successfully!",
-      });
-    }
+    if (!userName || !email || !password)
+      return response(400, "Fields Can not be empty!");
+    const user = await Users.findOne({ email });
+    if (user) return response(409, { message: "User already exists" });
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    const newUser = await Users.create({
+      userName,
+      email,
+      password: hashedPassword,
+    });
+    if (!newUser) return response(400, { message: "Registration Failed!" });
+    return response(200, { message: "User Registered!" });
   } catch (error) {
     console.log(error);
     return response(500);

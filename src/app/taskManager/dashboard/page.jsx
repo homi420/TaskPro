@@ -13,14 +13,11 @@ const Dashboard = () => {
   const router = useRouter();
   const {
     loggedInUser,
-    teams,
     setTeams,
-    userTasks,
     getUserTasks,
     handleAlert,
     teamsByMember,
     setTeamsByMember,
-    socket,
     socketAvailable,
     allTeamsTasks,
     getAllTeamsTasks,

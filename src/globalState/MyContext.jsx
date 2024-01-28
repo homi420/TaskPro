@@ -42,7 +42,6 @@ export const MyContextProvider = ({ children }) => {
     socket.on("error", handleSocketError);
     return () => socket.disconnect();
   }, []);
-
   useEffect(() => {
     setAllMessages(() => []);
   }, [currentChatRoom]);
@@ -81,7 +80,7 @@ export const MyContextProvider = ({ children }) => {
   const getUser = async (token) => {
     const response = await fetch(`/api/getUser/${token}`);
     const json = await response.json();
-    setLoggedInUser(() => json.resp);
+    setLoggedInUser(() => json.resp.user);
   };
 
   const getTeamTasks = (teamId) => {
@@ -164,9 +163,7 @@ export const MyContextProvider = ({ children }) => {
     }
   };
   const handleMessage = (message) => {
-    console.log("msg received");
     if (message.to === currentChatRoom) {
-      console.log(currentChatRoom);
       toggleScrollToBottom();
       setAllMessages((prevMsg) => {
         const updatedMessages = prevMsg.filter(
@@ -233,10 +230,6 @@ export const MyContextProvider = ({ children }) => {
     message: "",
     success: null,
   });
-  const toggleAllTasksAgain = () => {
-    console.log("in the toggle functions");
-    setGetAllTasksAgain((prevVal) => !prevVal);
-  };
   const toggleScrollToBottom = () => {
     setScrollToBottom((prevVal) => !prevVal);
   };
