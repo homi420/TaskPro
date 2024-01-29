@@ -153,7 +153,7 @@ export const MyContextProvider = ({ children }) => {
   const handleSocketSuccess = ({ message, action, data }) => {
     handleAlert(true, { message });
     if (action === "reloadTasks") {
-      if (window.location.pathname === "/taskManager/dashboard") {
+      if (window.location.pathname === "/taskmanager/dashboard") {
         const userId = loggedInUser._id;
         if (userId !== undefined) socket.emit("getUserTasks", userId);
         else console.error("user id is not defined");
