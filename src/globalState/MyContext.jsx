@@ -155,6 +155,9 @@ export const MyContextProvider = ({ children }) => {
     if (action === "reloadTasks") {
       if (window.location.pathname === "/taskmanager/dashboard") {
         const userId = loggedInUser._id;
+        console.log(loggedInUser);
+        console.log(userId);
+        console.log(teamsByMember);
         if (userId !== undefined) socket.emit("getUserTasks", userId);
         else console.error("user id is not defined");
         const myFn = () => {
