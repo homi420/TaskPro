@@ -52,6 +52,21 @@ export const MyContextProvider = ({ children }) => {
     }
   }, [loggedInUser]);
   useEffect(() => {
+    const getTeamsByMember = async () => {
+      const response = await fetch(
+        `/api/taskManager/getTeamsByMember/${loggedInUser._id}`
+      );
+      const json = await response.json();
+      if (!response.ok) {
+        handleAlert(false, { message: json.message });
+      } else {
+        setTeamsByMember(() => json.resp.teams);
+      }
+    };
+    if (loggedInUser) getTeamsByMember();
+  }, [loggedInUser]);
+
+  useEffect(() => {
     if (currentChatRoom) socket.on("message", handleMessage);
   }, [currentChatRoom]);
   useEffect(() => {

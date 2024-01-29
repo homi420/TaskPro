@@ -35,21 +35,9 @@ const Dashboard = () => {
         setTeams(json.resp);
       }
     };
-    const getTeamsByMember = async () => {
-      const response = await fetch(
-        `/api/taskManager/getTeamsByMember/${loggedInUser._id}`
-      );
-      const json = await response.json();
-      if (!response.ok) {
-        handleAlert(false, { message: json.message });
-      } else {
-        setTeamsByMember(() => json.resp.teams);
-      }
-    };
 
     if (loggedInUser) {
       getUserTasks(loggedInUser._id);
-      getTeamsByMember();
     }
   }, [loggedInUser]);
   useEffect(() => {

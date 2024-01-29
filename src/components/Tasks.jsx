@@ -190,17 +190,17 @@ const TaskModal = ({ task }) => {
                       className="flex items-center gap-2 cursor-pointer"
                       onClick={() => markChecked(index, task._id)}
                     >
-                      {goal.completed ? (
+                      {goal?.completed ? (
                         <FaCheckCircle className="text-xl" />
                       ) : (
                         <FaClock className="text-xl" />
                       )}
-                      <span className={`${goal.completed && "line-through"}`}>
-                        {goal.objective}
+                      <span className={`${goal?.completed && "line-through"}`}>
+                        {goal?.objective}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
-                      {goal.completed || (
+                      {goal?.completed || (
                         <>
                           <FaTrash
                             className="specialIcons"
@@ -211,7 +211,7 @@ const TaskModal = ({ task }) => {
                             onClick={() =>
                               toggleEditor(
                                 `updatedGoal_${index}`,
-                                goal.objective,
+                                goal?.objective,
                                 index
                               )
                             }
@@ -298,9 +298,11 @@ const Tasks = ({ task }) => {
   const [currentGoal, setCurrentGoal] = useState(task.goals[0]);
   const { toggleModal } = useMyContext();
   useEffect(() => {
-    const completedGoals = task.goals.filter((goal) => goal.completed === true);
+    const completedGoals = task.goals.filter(
+      (goal) => goal?.completed === true
+    );
     const unCompletedGoals = task.goals.filter(
-      (goal) => goal.completed === false
+      (goal) => goal?.completed === false
     );
     if (unCompletedGoals.length > 0) setCurrentGoal(unCompletedGoals[0]);
     else setCurrentGoal({ objective: "No Goals Remaining" });
@@ -320,7 +322,7 @@ const Tasks = ({ task }) => {
           <span className="font-semibold">Current Goal:</span>
 
           <span className="rounded bg-green-400 p-2">
-            {currentGoal.objective}
+            {currentgoal?.objective}
           </span>
         </div>
         {/* Progress Bar */}
