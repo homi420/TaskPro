@@ -322,7 +322,7 @@ const Tasks = ({ task }) => {
           <span className="font-semibold">Current Goal:</span>
 
           <span className="rounded bg-green-400 p-2">
-            {currentgoal?.objective}
+            {currentGoal?.objective}
           </span>
         </div>
         {/* Progress Bar */}
