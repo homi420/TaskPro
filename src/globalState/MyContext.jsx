@@ -71,7 +71,7 @@ export const MyContextProvider = ({ children }) => {
   }, [currentChatRoom]);
   useEffect(() => {
     if (loggedInUser) socket.on("success", handleSocketSuccess);
-  }, [loggedInUser, pathname]);
+  }, [loggedInUser, pathname, teamsByMember]);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
