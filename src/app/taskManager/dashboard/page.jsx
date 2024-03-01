@@ -42,10 +42,12 @@ const Dashboard = () => {
     }
   }, [loggedInUser]);
   useEffect(() => {
-    if (socketAvailable && teamsByMember.length > 0) {
-      teamsByMember.map((team) => getAllTeamsTasks(team));
+    if (socketAvailable && loggedInUser) {
+      // teamsByMember.map((team) => getAllTeamsTasks(team));
+      console.log(loggedInUser._id);
+      getAllTeamsTasks(loggedInUser._id);
     }
-  }, [socketAvailable, teamsByMember, getAllTasksAgain]);
+  }, [socketAvailable, teamsByMember, getAllTasksAgain, loggedInUser]);
   return (
     <div className="p-4">
       <section className="flex flex-col gap-10">

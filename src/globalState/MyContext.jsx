@@ -89,7 +89,7 @@ export const MyContextProvider = ({ children }) => {
   // GET's
   const getAllTeamsTasks = async (team) => {
     const teamId = team._id;
-    socket.emit("getAllTeamTasks", teamId);
+    socket.emit("getAllTeamTasks", team);
   };
 
   const getUser = async (token) => {
@@ -132,28 +132,30 @@ export const MyContextProvider = ({ children }) => {
   const handleReceiveTeamTasks = (tasks) => {
     setTeamTasks(tasks);
   };
+  // const handleReceiveAllTeamTasks = (tasks) => {
+  //   setAllTeamsTasks((prevArray) => {
+  //     // Filter out tasks from prevArray that are not present in the new tasks array
+  //     const updatedArray = prevArray.filter((existingTask) =>
+  //       tasks.some((newTask) => newTask._id === existingTask._id)
+  //     );
+
+  //     // Add any new tasks that don't have a matching ID in the existing array
+  //     const newTasks = tasks.filter(
+  //       (newTask) =>
+  //         !prevArray.some((existingTask) => existingTask._id === newTask._id)
+  //     );
+
+  //     // Concatenate updatedArray with newTasks
+  //     return [...updatedArray, ...newTasks];
+  //   });
+  // };
   const handleReceiveAllTeamTasks = (tasks) => {
-    setAllTeamsTasks((prevArray) => {
-      // Filter out tasks from prevArray that are not present in the new tasks array
-      const updatedArray = prevArray.filter((existingTask) =>
-        tasks.some((newTask) => newTask._id === existingTask._id)
-      );
-
-      // Add any new tasks that don't have a matching ID in the existing array
-      const newTasks = tasks.filter(
-        (newTask) =>
-          !prevArray.some((existingTask) => existingTask._id === newTask._id)
-      );
-
-      // Concatenate updatedArray with newTasks
-      return [...updatedArray, ...newTasks];
-    });
+    setAllTeamsTasks(tasks);
   };
-
   const handleSocketSuccess = ({ message, action, data }) => {
     handleAlert(true, { message });
     if (action === "reloadTasks") {
-      if (window.location.pathname === "/taskmanager/dashboard") {
+      if (window.location.pathname === "/taskManager/dashboard") {
         const userId = loggedInUser._id;
         console.log(loggedInUser);
         console.log(userId);
