@@ -101,21 +101,21 @@ const Team = ({ params }) => {
     loggedInUser,
   } = useMyContext();
   useEffect(() => {
-    if (params.id && socketAvailable) {
-      getTeamTasks(params.id);
+    if (params?.id && socketAvailable) {
+      getTeamTasks(params?.id);
     }
     console.log(socketAvailable);
   }, [socketAvailable]);
   useEffect(() => {
     const getTeam = async () => {
       const response = await fetch(
-        `../../api/taskManager/getTeam/${params.id}`
+        `../../api/taskManager/getTeam/${params?.id}`
       );
       const json = await response.json();
       setTeam(json.resp);
       console.log(json.resp);
     };
-    if (params.id) {
+    if (params?.id) {
       getTeam();
     }
   }, []);
@@ -127,7 +127,6 @@ const Team = ({ params }) => {
         <div className="flex justify-between">
           <h1 className="text-3xl font-medium">{team?.name}</h1>
           <div className="flex justify-end">
-            {console.log(team)}
             {loggedInUser?._id === team?.headAdmin.id._id && (
               <button
                 type="button"
