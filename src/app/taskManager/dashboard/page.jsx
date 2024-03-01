@@ -38,6 +38,7 @@ const Dashboard = () => {
 
     if (loggedInUser) {
       getUserTasks(loggedInUser._id);
+      getTeams();
     }
   }, [loggedInUser]);
   useEffect(() => {
@@ -61,7 +62,7 @@ const Dashboard = () => {
               return (
                 <Link
                   key={index}
-                  href={`team/${team._id}`}
+                  href={`/taskManager/team/${team._id}`}
                   className="flex flex-col gap-4 bg-pink-100 rounded shadow-md p-4 py-6 cursor-pointer relative fadeIn flex-grow"
                   style={{}}
                 >
